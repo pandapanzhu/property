@@ -1,0 +1,62 @@
+{
+    "fluentMethods": true,
+    "fields": [
+        {
+            "fieldName": "salary_id",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "reason",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "amount",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "remark",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dlt",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "create_user",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createDate",
+            "fieldType": "Date"
+        },
+        {
+            "fieldName": "update_user",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "update_date",
+            "fieldType": "Date"
+        }
+    ],
+    "service": "serviceClass",
+    "entityTableName": "add_minus",
+    "pagination": "pagination",
+    "jpaMetamodelFiltering": true,
+    "searchEngine": true,
+    "iconnectColumnsPerRow": 2,
+    "iconnectEnableAudit": true,
+    "enableEntityAudit": true
+}
