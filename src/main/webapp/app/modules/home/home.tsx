@@ -1,15 +1,33 @@
 import './home.css';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+// import { Link } from 'react-router-dom';
+import { NavLink as Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-
+import {
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  NavItem,
+  NavLink,
+  NavbarBrand,
+  DropdownItem,
+  Row,
+  Col,
+  Alert,
+  Button
+} from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export interface IHomeProp extends StateProps, DispatchProps {}
+
+export const NavDropdown = props => (
+  <UncontrolledDropdown inNavbar id={props.id}>
+    <DropdownMenu className="show">{props.children}</DropdownMenu>
+  </UncontrolledDropdown>
+);
 
 export class Home extends React.Component<IHomeProp> {
   componentDidMount() {
@@ -20,74 +38,41 @@ export class Home extends React.Component<IHomeProp> {
     const { account } = this.props;
     return (
       <Row>
-        <Col md="9">
-          <h2>Welcome, Java Hipster!</h2>
-          <p className="lead">This is your homepage</p>
-          {account && account.login ? (
-            <div>
-              <Alert color="success">You are logged in as user {account.login}.</Alert>
-            </div>
-          ) : (
-            <div>
-              <Alert color="warning">
-                If you want to
+        <Col xs="9">
+          <h2 className="welcome">
+            {' '}
+            <div className="loginName">欢迎您, </div>
+            {account && account.login ? (
+              <div className="loginName">
+                <Link to="entity/stuff" className="btn btn-light float-right jh-create-entity">
+                  {account.login}
+                </Link>
+              </div>
+            ) : (
+              <div className="loginName">
                 <Link to="/login" className="alert-link">
                   {' '}
-                  sign in
+                  请先登录
                 </Link>
-                , you can try the default accounts:
-                <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-                <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-              </Alert>
-
-              <Alert color="warning">
-                You do not have an account yet?&nbsp;
-                <Link to="/register" className="alert-link">
-                  Register a new account
-                </Link>
-              </Alert>
-            </div>
-          )}
-          <p>If you have any question on JHipster:</p>
-
-          <ul>
-            <li>
-              <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-                JHipster homepage
-              </a>
-            </li>
-            <li>
-              <a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-                JHipster on Stack Overflow
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-                JHipster bug tracker
-              </a>
-            </li>
-            <li>
-              <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-                JHipster public chat room
-              </a>
-            </li>
-            <li>
-              <a href="https://twitter.com/java_hipster" target="_blank" rel="noopener noreferrer">
-                follow @java_hipster on Twitter
-              </a>
-            </li>
-          </ul>
-
-          <p>
-            If you like JHipster, do not forget to give us a star on{' '}
-            <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              Github
-            </a>
-            !
-          </p>
+              </div>
+            )}
+          </h2>
         </Col>
-        <Col md="3" className="pad">
-          <span className="hipster rounded" />
+
+        {/*头部结束*/}
+        <Col xs="12">
+          <div className="selfHome">
+            {account && account.login ? (
+              <NavDropdown divider>
+                <DropdownItem id="login-item" tag={Link} to="/entity/property-serve">
+                  <div className="name"> 我的订单 </div> <div className="font"> > </div>
+                </DropdownItem>
+                <DropdownItem tag={Link} to="/entity/property-money">
+                  <div className="name"> 我的服务 </div> <div className="font"> > </div>
+                </DropdownItem>
+              </NavDropdown>
+            ) : null}
+          </div>
         </Col>
       </Row>
     );

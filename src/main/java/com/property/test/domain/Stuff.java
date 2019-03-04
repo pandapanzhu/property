@@ -29,8 +29,6 @@ public class Stuff implements Serializable {
     @Column(name = "stuffname", nullable = false)
     private String stuffname;
 
-    @Column(name = "gender")
-    private String gender;
 
     @NotNull
     @Pattern(regexp = "^[0-9]{11}$")
@@ -98,19 +96,6 @@ public class Stuff implements Serializable {
 
     public void setStuffname(String stuffname) {
         this.stuffname = stuffname;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public Stuff gender(String gender) {
-        this.gender = gender;
-        return this;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getPhone() {
@@ -270,7 +255,6 @@ public class Stuff implements Serializable {
             "id=" + getId() +
             ", userId='" + getUserId() + "'" +
             ", stuffname='" + getStuffname() + "'" +
-            ", gender='" + getGender() + "'" +
             ", phone='" + getPhone() + "'" +
             ", email='" + getEmail() + "'" +
             ", idcard='" + getIdcard() + "'" +

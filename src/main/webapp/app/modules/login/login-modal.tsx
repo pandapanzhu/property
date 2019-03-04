@@ -24,55 +24,41 @@ class LoginModal extends React.Component<ILoginModalProps> {
       <Modal isOpen={this.props.showModal} toggle={handleClose} backdrop="static" id="login-page" autoFocus={false}>
         <AvForm onSubmit={this.handleSubmit}>
           <ModalHeader id="login-title" toggle={handleClose}>
-            Sign in
+            请登录
           </ModalHeader>
           <ModalBody>
             <Row>
               <Col md="12">
                 {loginError ? (
                   <Alert color="danger">
-                    <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                    <strong>登录失败!</strong> 请检查你的账号密码是否正确.
                   </Alert>
                 ) : null}
               </Col>
               <Col md="12">
-                <AvField
-                  name="username"
-                  label="Username"
-                  placeholder="Your username"
-                  required
-                  errorMessage="Username cannot be empty!"
-                  autoFocus
-                />
-                <AvField
-                  name="password"
-                  type="password"
-                  label="Password"
-                  placeholder="Your password"
-                  required
-                  errorMessage="Password cannot be empty!"
-                />
+                <AvField name="username" label="用户名" placeholder="请输入用户名" required errorMessage="用户名不能为空!" autoFocus />
+                <AvField name="password" type="password" label="密码" placeholder="请输入密码" required errorMessage="密码不能为空!" />
                 <AvGroup check inline>
                   <Label className="form-check-label">
-                    <AvInput type="checkbox" name="rememberMe" /> Remember me
+                    <AvInput type="checkbox" name="rememberMe" /> 记住我
                   </Label>
                 </AvGroup>
               </Col>
             </Row>
             <div className="mt-1">&nbsp;</div>
             <Alert color="warning">
-              <Link to="/reset/request">Did you forget your password?</Link>
+              <Link to="/reset/request">忘记密码?</Link>
             </Alert>
             <Alert color="warning">
-              <span>You don't have an account yet?</span> <Link to="/register">Register a new account</Link>
+              <span>还没有账号?</span> <Link to="/register">点击注册</Link>
             </Alert>
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={handleClose} tabIndex="1">
-              Cancel
+              取消
             </Button>{' '}
             <Button color="primary" type="submit">
-              Sign in
+              登录
             </Button>
           </ModalFooter>
         </AvForm>

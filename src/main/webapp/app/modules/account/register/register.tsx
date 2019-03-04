@@ -45,65 +45,80 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
             <AvForm id="register-form" onValidSubmit={this.handleValidSubmit}>
               <AvField
                 name="username"
-                label="Username"
-                placeholder="Your username"
+                label="用户名"
+                placeholder="请输入用户名"
                 validate={{
-                  required: { value: true, errorMessage: 'Your username is required.' },
-                  pattern: { value: '^[_.@A-Za-z0-9-]*$', errorMessage: 'Your username can only contain letters and digits.' },
-                  minLength: { value: 1, errorMessage: 'Your username is required to be at least 1 character.' },
-                  maxLength: { value: 50, errorMessage: 'Your username cannot be longer than 50 characters.' }
+                  required: { value: true, errorMessage: '用户名不能为空' },
+                  pattern: { value: '^[_.@A-Za-z0-9-]*$', errorMessage: '用户名包含了非法字符' },
+                  minLength: { value: 1, errorMessage: '用户名长度为1-50' },
+                  maxLength: { value: 50, errorMessage: '用户名长度为1-50' }
                 }}
               />
               <AvField
                 name="email"
-                label="Email"
-                placeholder="Your email"
+                label="邮箱"
+                placeholder="请输入你的邮箱"
                 type="email"
                 validate={{
-                  required: { value: true, errorMessage: 'Your email is required.' },
-                  minLength: { value: 5, errorMessage: 'Your email is required to be at least 5 characters.' },
-                  maxLength: { value: 254, errorMessage: 'Your email cannot be longer than 50 characters.' }
+                  required: { value: true, errorMessage: '邮箱不能为空' },
+                  minLength: { value: 5, errorMessage: '邮箱长度为5-250' },
+                  maxLength: { value: 254, errorMessage: '邮箱长度为5-250' }
                 }}
               />
               <AvField
+                name="phone"
+                label="手机号码"
+                placeholder="请输入你的手机号码"
+                type="phone"
+                validate={{
+                  required: { value: true, errorMessage: '手机号码不能为空' },
+                  minLength: { value: 5, errorMessage: '手机号码长度为5-12' },
+                  maxLength: { value: 12, errorMessage: '手机号码长度为5-12' }
+                }}
+              />
+              <AvField
+                name="address"
+                label="房间号"
+                placeholder="1栋1单元101"
+                validate={{
+                  required: { value: true, errorMessage: '房间号不能为空' },
+                  minLength: { value: 5, errorMessage: '房间号长度为5-12' },
+                  maxLength: { value: 12, errorMessage: '房间号长度为5-12' }
+                }}
+              />
+
+              <AvField
                 name="firstPassword"
-                label="New password"
-                placeholder="New password"
+                label="密码"
+                placeholder="请输入密码"
                 type="password"
                 onChange={this.updatePassword}
                 validate={{
-                  required: { value: true, errorMessage: 'Your password is required.' },
-                  minLength: { value: 4, errorMessage: 'Your password is required to be at least 4 characters.' },
-                  maxLength: { value: 50, errorMessage: 'Your password cannot be longer than 50 characters.' }
+                  required: { value: true, errorMessage: '密码不能为空' },
+                  minLength: { value: 4, errorMessage: '密码长度为4-50' },
+                  maxLength: { value: 50, errorMessage: '密码长度为4-50' }
                 }}
               />
               <PasswordStrengthBar password={this.state.password} />
               <AvField
                 name="secondPassword"
-                label="New password confirmation"
-                placeholder="Confirm the new password"
+                label="确认密码"
+                placeholder="请再次输入密码"
                 type="password"
                 validate={{
-                  required: { value: true, errorMessage: 'Your confirmation password is required.' },
-                  minLength: { value: 4, errorMessage: 'Your confirmation password is required to be at least 4 characters.' },
-                  maxLength: { value: 50, errorMessage: 'Your confirmation password cannot be longer than 50 characters.' },
-                  match: { value: 'firstPassword', errorMessage: 'The password and its confirmation do not match!' }
+                  required: { value: true, errorMessage: '密码不能为空' },
+                  minLength: { value: 4, errorMessage: '密码长度为4-50' },
+                  maxLength: { value: 50, errorMessage: '密码长度为4-50' },
+                  match: { value: 'firstPassword', errorMessage: '密码确认失败，请输入正确的密码' }
                 }}
               />
               <Button id="register-submit" color="primary" type="submit">
-                Register
+                注册
+              </Button>
+              <Button id="register-submit" color="success" type="button">
+                登录
               </Button>
             </AvForm>
-            <p>&nbsp;</p>
-            <Alert color="warning">
-              <span>If you want to</span>
-              <a className="alert-link"> sign in</a>
-              <span>
-                , you can try the default accounts:
-                <br />- Administrator (login="admin" and password="admin")
-                <br />- User (login="user" and password="user").
-              </span>
-            </Alert>
           </Col>
         </Row>
       </div>

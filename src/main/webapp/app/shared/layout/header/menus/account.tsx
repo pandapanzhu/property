@@ -8,13 +8,13 @@ import { NavDropdown } from '../header-components';
 const accountMenuItemsAuthenticated = (
   <>
     <DropdownItem tag={Link} to="/account/settings">
-      <FontAwesomeIcon icon="wrench" /> Settings
+      <FontAwesomeIcon icon="wrench" /> 设置
     </DropdownItem>
     <DropdownItem tag={Link} to="/account/password">
-      <FontAwesomeIcon icon="clock" /> Password
+      <FontAwesomeIcon icon="clock" /> 密码
     </DropdownItem>
     <DropdownItem tag={Link} to="/logout">
-      <FontAwesomeIcon icon="sign-out-alt" /> Sign out
+      <FontAwesomeIcon icon="sign-out-alt" /> 注销
     </DropdownItem>
   </>
 );
@@ -22,16 +22,16 @@ const accountMenuItemsAuthenticated = (
 const accountMenuItems = (
   <>
     <DropdownItem id="login-item" tag={Link} to="/login">
-      <FontAwesomeIcon icon="sign-in-alt" /> Sign in
+      <FontAwesomeIcon icon="sign-in-alt" /> 登录
     </DropdownItem>
     <DropdownItem tag={Link} to="/register">
-      <FontAwesomeIcon icon="sign-in-alt" /> Register
+      <FontAwesomeIcon icon="sign-in-alt" /> 注册
     </DropdownItem>
   </>
 );
 
 export const AccountMenu = ({ isAuthenticated = false }) => (
-  <NavDropdown icon="user" name="Account" id="account-menu">
+  <NavDropdown icon="user" name="账号设置" id="account-menu">
     {isAuthenticated ? accountMenuItemsAuthenticated : accountMenuItems}
   </NavDropdown>
 );
