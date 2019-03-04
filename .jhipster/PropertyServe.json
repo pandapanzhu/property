@@ -9,41 +9,16 @@
             ]
         },
         {
-            "fieldName": "stuffname",
+            "fieldName": "reason",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "gender",
+            "fieldName": "type",
             "fieldType": "String"
         },
-        {
-            "fieldName": "phone",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "pattern"
-            ],
-            "fieldValidateRulesPattern": "^[0-9]{11}$"
-        },
-        {
-            "fieldName": "email",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "idcard",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "address",
-            "fieldType": "String"
-        },
-        
         {
             "fieldName": "remark",
             "fieldType": "String"
@@ -70,7 +45,7 @@
         }
     ],
     "service": "serviceClass",
-    "entityTableName": "stuff",
+    "entityTableName": "PropertyServe",
     "pagination": "pagination",
     "searchEngine": true,
     "enableEntityAudit": true
