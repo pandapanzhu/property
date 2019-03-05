@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="stuff">
+            <h2><span>Stuff</span> {{stuff.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>User Id</span></dt>
+                <dd>
+                    <span>{{stuff.userId}}</span>
+                </dd>
+                <dt><span>Stuffname</span></dt>
+                <dd>
+                    <span>{{stuff.stuffname}}</span>
+                </dd>
+                <dt><span>Gender</span></dt>
+                <dd>
+                    <span>{{stuff.gender}}</span>
+                </dd>
+                <dt><span>Phone</span></dt>
+                <dd>
+                    <span>{{stuff.phone}}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{stuff.email}}</span>
+                </dd>
+                <dt><span>Idcard</span></dt>
+                <dd>
+                    <span>{{stuff.idcard}}</span>
+                </dd>
+                <dt><span>Address</span></dt>
+                <dd>
+                    <span>{{stuff.address}}</span>
+                </dd>
+                <dt><span>Remark</span></dt>
+                <dd>
+                    <span>{{stuff.remark}}</span>
+                </dd>
+                <dt><span>Dlt</span></dt>
+                <dd>
+                    <span>{{stuff.dlt}}</span>
+                </dd>
+                <dt><span>Create User</span></dt>
+                <dd>
+                    <span>{{stuff.create_user}}</span>
+                </dd>
+                <dt><span>Create Date</span></dt>
+                <dd>
+                    <span>{{stuff.createDate}}</span>
+                </dd>
+                <dt><span>Update User</span></dt>
+                <dd>
+                    <span>{{stuff.update_user}}</span>
+                </dd>
+                <dt><span>Update Date</span></dt>
+                <dd>
+                    <span>{{stuff.update_date}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/stuff', stuff.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

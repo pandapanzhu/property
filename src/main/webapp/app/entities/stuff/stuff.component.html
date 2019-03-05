@@ -1,0 +1,86 @@
+<div>
+    <h2 id="page-heading">
+        <span>Stuffs</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-stuff" [routerLink]="['/stuff/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Stuff
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="stuffs">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userId"><span>User Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="stuffname"><span>Stuffname</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="gender"><span>Gender</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="phone"><span>Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="idcard"><span>Idcard</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="address"><span>Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="remark"><span>Remark</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dlt"><span>Dlt</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="create_user"><span>Create User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createDate"><span>Create Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="update_user"><span>Update User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="update_date"><span>Update Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let stuff of stuffs ;trackBy: trackId">
+                <td><a [routerLink]="['/stuff', stuff.id, 'view' ]">{{stuff.id}}</a></td>
+                <td>{{stuff.userId}}</td>
+                <td>{{stuff.stuffname}}</td>
+                <td>{{stuff.gender}}</td>
+                <td>{{stuff.phone}}</td>
+                <td>{{stuff.email}}</td>
+                <td>{{stuff.idcard}}</td>
+                <td>{{stuff.address}}</td>
+                <td>{{stuff.remark}}</td>
+                <td>{{stuff.dlt}}</td>
+                <td>{{stuff.create_user}}</td>
+                <td>{{stuff.createDate | date:'medium'}}</td>
+                <td>{{stuff.update_user}}</td>
+                <td>{{stuff.update_date | date:'medium'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/stuff', stuff.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/stuff', stuff.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'stuff', { outlets: { popup: stuff.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="stuffs && stuffs.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
