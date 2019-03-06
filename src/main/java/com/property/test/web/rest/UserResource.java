@@ -3,6 +3,7 @@ package com.property.test.web.rest;
 import com.property.test.config.Constants;
 import com.property.test.domain.User;
 import com.property.test.repository.UserRepository;
+import com.property.test.repository.search.UserSearchRepository;
 import com.property.test.security.AuthoritiesConstants;
 import com.property.test.service.MailService;
 import com.property.test.service.UserService;
@@ -12,6 +13,7 @@ import com.property.test.web.rest.errors.EmailAlreadyUsedException;
 import com.property.test.web.rest.errors.LoginAlreadyUsedException;
 import com.property.test.web.rest.util.HeaderUtil;
 import com.property.test.web.rest.util.PaginationUtil;
+import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 
 import org.slf4j.Logger;
@@ -28,6 +30,10 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing users.
@@ -65,11 +71,14 @@ public class UserResource {
 
     private final MailService mailService;
 
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
+    private final UserSearchRepository userSearchRepository;
+
+    public UserResource(UserService userService, UserRepository userRepository, MailService mailService, UserSearchRepository userSearchRepository) {
 
         this.userService = userService;
         this.userRepository = userRepository;
         this.mailService = mailService;
+        this.userSearchRepository = userSearchRepository;
     }
 
     /**
@@ -85,6 +94,7 @@ public class UserResource {
      * @throws BadRequestAlertException 400 (Bad Request) if the login or email is already in use
      */
     @PostMapping("/users")
+    @Timed
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) throws URISyntaxException {
         log.debug("REST request to save User : {}", userDTO);
@@ -114,6 +124,7 @@ public class UserResource {
      * @throws LoginAlreadyUsedException 400 (Bad Request) if the login is already in use
      */
     @PutMapping("/users")
+    @Timed
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDTO) {
         log.debug("REST request to update User : {}", userDTO);
@@ -138,6 +149,7 @@ public class UserResource {
      * @return the ResponseEntity with status 200 (OK) and with body all users
      */
     @GetMapping("/users")
+    @Timed
     public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
@@ -148,6 +160,7 @@ public class UserResource {
      * @return a string list of the all of the roles
      */
     @GetMapping("/users/authorities")
+    @Timed
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public List<String> getAuthorities() {
         return userService.getAuthorities();
@@ -160,6 +173,7 @@ public class UserResource {
      * @return the ResponseEntity with status 200 (OK) and with body the "login" user, or with status 404 (Not Found)
      */
     @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
+    @Timed
     public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
         return ResponseUtil.wrapOrNotFound(
@@ -174,10 +188,26 @@ public class UserResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
+    @Timed
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert( "A user is deleted with identifier " + login, login)).build();
+    }
+
+    /**
+     * SEARCH /_search/users/:query : search for the User corresponding
+     * to the query.
+     *
+     * @param query the query to search
+     * @return the result of the search
+     */
+    @GetMapping("/_search/users/{query}")
+    @Timed
+    public List<User> search(@PathVariable String query) {
+        return StreamSupport
+            .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
     }
 }

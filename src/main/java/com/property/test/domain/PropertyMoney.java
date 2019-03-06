@@ -1,7 +1,6 @@
 package com.property.test.domain;
 
 
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -18,7 +17,7 @@ import java.util.Objects;
 public class PropertyMoney implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

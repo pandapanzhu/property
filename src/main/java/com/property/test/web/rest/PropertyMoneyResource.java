@@ -1,4 +1,6 @@
 package com.property.test.web.rest;
+
+import com.codahale.metrics.annotation.Timed;
 import com.property.test.domain.PropertyMoney;
 import com.property.test.service.PropertyMoneyService;
 import com.property.test.web.rest.errors.BadRequestAlertException;
@@ -32,7 +34,7 @@ public class PropertyMoneyResource {
 
     private static final String ENTITY_NAME = "propertyMoney";
 
-    private final PropertyMoneyService propertyMoneyService;
+    private PropertyMoneyService propertyMoneyService;
 
     public PropertyMoneyResource(PropertyMoneyService propertyMoneyService) {
         this.propertyMoneyService = propertyMoneyService;
@@ -46,6 +48,7 @@ public class PropertyMoneyResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/property-monies")
+    @Timed
     public ResponseEntity<PropertyMoney> createPropertyMoney(@Valid @RequestBody PropertyMoney propertyMoney) throws URISyntaxException {
         log.debug("REST request to save PropertyMoney : {}", propertyMoney);
         if (propertyMoney.getId() != null) {
@@ -67,6 +70,7 @@ public class PropertyMoneyResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/property-monies")
+    @Timed
     public ResponseEntity<PropertyMoney> updatePropertyMoney(@Valid @RequestBody PropertyMoney propertyMoney) throws URISyntaxException {
         log.debug("REST request to update PropertyMoney : {}", propertyMoney);
         if (propertyMoney.getId() == null) {
@@ -85,11 +89,12 @@ public class PropertyMoneyResource {
      * @return the ResponseEntity with status 200 (OK) and the list of propertyMonies in body
      */
     @GetMapping("/property-monies")
+    @Timed
     public ResponseEntity<List<PropertyMoney>> getAllPropertyMonies(Pageable pageable) {
         log.debug("REST request to get a page of PropertyMonies");
         Page<PropertyMoney> page = propertyMoneyService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/property-monies");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
@@ -99,6 +104,7 @@ public class PropertyMoneyResource {
      * @return the ResponseEntity with status 200 (OK) and with body the propertyMoney, or with status 404 (Not Found)
      */
     @GetMapping("/property-monies/{id}")
+    @Timed
     public ResponseEntity<PropertyMoney> getPropertyMoney(@PathVariable Long id) {
         log.debug("REST request to get PropertyMoney : {}", id);
         Optional<PropertyMoney> propertyMoney = propertyMoneyService.findOne(id);
@@ -112,6 +118,7 @@ public class PropertyMoneyResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/property-monies/{id}")
+    @Timed
     public ResponseEntity<Void> deletePropertyMoney(@PathVariable Long id) {
         log.debug("REST request to delete PropertyMoney : {}", id);
         propertyMoneyService.delete(id);

@@ -1,4 +1,6 @@
 package com.property.test.web.rest;
+
+import com.codahale.metrics.annotation.Timed;
 import com.property.test.domain.Stuff;
 import com.property.test.service.StuffService;
 import com.property.test.web.rest.errors.BadRequestAlertException;
@@ -32,7 +34,7 @@ public class StuffResource {
 
     private static final String ENTITY_NAME = "stuff";
 
-    private final StuffService stuffService;
+    private StuffService stuffService;
 
     public StuffResource(StuffService stuffService) {
         this.stuffService = stuffService;
@@ -46,6 +48,7 @@ public class StuffResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/stuffs")
+    @Timed
     public ResponseEntity<Stuff> createStuff(@Valid @RequestBody Stuff stuff) throws URISyntaxException {
         log.debug("REST request to save Stuff : {}", stuff);
         if (stuff.getId() != null) {
@@ -67,6 +70,7 @@ public class StuffResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/stuffs")
+    @Timed
     public ResponseEntity<Stuff> updateStuff(@Valid @RequestBody Stuff stuff) throws URISyntaxException {
         log.debug("REST request to update Stuff : {}", stuff);
         if (stuff.getId() == null) {
@@ -85,11 +89,12 @@ public class StuffResource {
      * @return the ResponseEntity with status 200 (OK) and the list of stuffs in body
      */
     @GetMapping("/stuffs")
+    @Timed
     public ResponseEntity<List<Stuff>> getAllStuffs(Pageable pageable) {
         log.debug("REST request to get a page of Stuffs");
         Page<Stuff> page = stuffService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stuffs");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
@@ -99,6 +104,7 @@ public class StuffResource {
      * @return the ResponseEntity with status 200 (OK) and with body the stuff, or with status 404 (Not Found)
      */
     @GetMapping("/stuffs/{id}")
+    @Timed
     public ResponseEntity<Stuff> getStuff(@PathVariable Long id) {
         log.debug("REST request to get Stuff : {}", id);
         Optional<Stuff> stuff = stuffService.findOne(id);
@@ -112,6 +118,7 @@ public class StuffResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/stuffs/{id}")
+    @Timed
     public ResponseEntity<Void> deleteStuff(@PathVariable Long id) {
         log.debug("REST request to delete Stuff : {}", id);
         stuffService.delete(id);

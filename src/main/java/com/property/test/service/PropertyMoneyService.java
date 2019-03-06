@@ -21,7 +21,7 @@ public class PropertyMoneyService {
 
     private final Logger log = LoggerFactory.getLogger(PropertyMoneyService.class);
 
-    private final PropertyMoneyRepository propertyMoneyRepository;
+    private PropertyMoneyRepository propertyMoneyRepository;
 
     public PropertyMoneyService(PropertyMoneyRepository propertyMoneyRepository) {
         this.propertyMoneyRepository = propertyMoneyRepository;

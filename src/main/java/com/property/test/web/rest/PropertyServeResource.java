@@ -1,4 +1,6 @@
 package com.property.test.web.rest;
+
+import com.codahale.metrics.annotation.Timed;
 import com.property.test.domain.PropertyServe;
 import com.property.test.service.PropertyServeService;
 import com.property.test.web.rest.errors.BadRequestAlertException;
@@ -32,7 +34,7 @@ public class PropertyServeResource {
 
     private static final String ENTITY_NAME = "propertyServe";
 
-    private final PropertyServeService propertyServeService;
+    private PropertyServeService propertyServeService;
 
     public PropertyServeResource(PropertyServeService propertyServeService) {
         this.propertyServeService = propertyServeService;
@@ -46,6 +48,7 @@ public class PropertyServeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/property-serves")
+    @Timed
     public ResponseEntity<PropertyServe> createPropertyServe(@Valid @RequestBody PropertyServe propertyServe) throws URISyntaxException {
         log.debug("REST request to save PropertyServe : {}", propertyServe);
         if (propertyServe.getId() != null) {
@@ -67,6 +70,7 @@ public class PropertyServeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/property-serves")
+    @Timed
     public ResponseEntity<PropertyServe> updatePropertyServe(@Valid @RequestBody PropertyServe propertyServe) throws URISyntaxException {
         log.debug("REST request to update PropertyServe : {}", propertyServe);
         if (propertyServe.getId() == null) {
@@ -85,11 +89,12 @@ public class PropertyServeResource {
      * @return the ResponseEntity with status 200 (OK) and the list of propertyServes in body
      */
     @GetMapping("/property-serves")
+    @Timed
     public ResponseEntity<List<PropertyServe>> getAllPropertyServes(Pageable pageable) {
         log.debug("REST request to get a page of PropertyServes");
         Page<PropertyServe> page = propertyServeService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/property-serves");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
@@ -99,6 +104,7 @@ public class PropertyServeResource {
      * @return the ResponseEntity with status 200 (OK) and with body the propertyServe, or with status 404 (Not Found)
      */
     @GetMapping("/property-serves/{id}")
+    @Timed
     public ResponseEntity<PropertyServe> getPropertyServe(@PathVariable Long id) {
         log.debug("REST request to get PropertyServe : {}", id);
         Optional<PropertyServe> propertyServe = propertyServeService.findOne(id);
@@ -112,6 +118,7 @@ public class PropertyServeResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/property-serves/{id}")
+    @Timed
     public ResponseEntity<Void> deletePropertyServe(@PathVariable Long id) {
         log.debug("REST request to delete PropertyServe : {}", id);
         propertyServeService.delete(id);
