@@ -1,6 +1,7 @@
 package com.property.test.domain;
 
 
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -16,7 +17,7 @@ import java.util.Objects;
 public class Stuff implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,6 +30,8 @@ public class Stuff implements Serializable {
     @Column(name = "stuffname", nullable = false)
     private String stuffname;
 
+    @Column(name = "gender")
+    private String gender;
 
     @NotNull
     @Pattern(regexp = "^[0-9]{11}$")
@@ -96,6 +99,19 @@ public class Stuff implements Serializable {
 
     public void setStuffname(String stuffname) {
         this.stuffname = stuffname;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public Stuff gender(String gender) {
+        this.gender = gender;
+        return this;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getPhone() {
@@ -255,6 +271,7 @@ public class Stuff implements Serializable {
             "id=" + getId() +
             ", userId='" + getUserId() + "'" +
             ", stuffname='" + getStuffname() + "'" +
+            ", gender='" + getGender() + "'" +
             ", phone='" + getPhone() + "'" +
             ", email='" + getEmail() + "'" +
             ", idcard='" + getIdcard() + "'" +

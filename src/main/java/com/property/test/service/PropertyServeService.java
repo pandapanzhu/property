@@ -21,7 +21,7 @@ public class PropertyServeService {
 
     private final Logger log = LoggerFactory.getLogger(PropertyServeService.class);
 
-    private PropertyServeRepository propertyServeRepository;
+    private final PropertyServeRepository propertyServeRepository;
 
     public PropertyServeService(PropertyServeRepository propertyServeRepository) {
         this.propertyServeRepository = propertyServeRepository;
