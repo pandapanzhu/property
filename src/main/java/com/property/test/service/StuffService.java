@@ -72,4 +72,12 @@ public class StuffService {
         log.debug("Request to delete Stuff : {}", id);
         stuffRepository.deleteById(id);
     }
+
+    public Optional<Stuff> findOneByEmail(String email){
+        return stuffRepository.findByEmail(email);
+    }
+
+    public Optional<Stuff> findOneByUserId(String userId){
+        return stuffRepository.findByUserId(userId);
+    }
 }

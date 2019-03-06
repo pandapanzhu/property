@@ -105,6 +105,12 @@ public class StuffResource {
         return ResponseUtil.wrapOrNotFound(stuff);
     }
 
+    @GetMapping("/stuff/{userId}")
+    public ResponseEntity<Stuff> getStuffByEmail(@PathVariable String userId){
+        Optional<Stuff> stuff = stuffService.findOneByUserId(userId);
+        return ResponseUtil.wrapOrNotFound(stuff);
+    }
+
     /**
      * DELETE  /stuffs/:id : delete the "id" stuff.
      *

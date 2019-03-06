@@ -16,10 +16,6 @@
             ]
         },
         {
-            "fieldName": "gender",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "phone",
             "fieldType": "String",
             "fieldValidateRules": [

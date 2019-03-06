@@ -1,6 +1,10 @@
 package com.property.test.domain;
 
 
+
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -17,10 +21,14 @@ import java.util.Objects;
 public class PropertyMoney implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
+    @Column(name = "user_id")
+    private String userId;
 
     @Column(name = "address")
     private String address;
@@ -34,10 +42,10 @@ public class PropertyMoney implements Serializable {
     private Boolean isPay;
 
     @Column(name = "jhi_year")
-    private String year;
+    private Integer year;
 
     @Column(name = "month")
-    private String month;
+    private Integer month;
 
     @Column(name = "remark")
     private String remark;
@@ -64,6 +72,22 @@ public class PropertyMoney implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Boolean getPay() {
+        return isPay;
+    }
+
+    public void setPay(Boolean pay) {
+        isPay = pay;
     }
 
     public String getAddress() {
@@ -105,29 +129,29 @@ public class PropertyMoney implements Serializable {
         this.isPay = isPay;
     }
 
-    public String getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public PropertyMoney year(String year) {
+    public PropertyMoney year(Integer year) {
         this.year = year;
         return this;
     }
 
-    public void setYear(String year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public String getMonth() {
+    public Integer getMonth() {
         return month;
     }
 
-    public PropertyMoney month(String month) {
+    public PropertyMoney month(Integer month) {
         this.month = month;
         return this;
     }
 
-    public void setMonth(String month) {
+    public void setMonth(Integer month) {
         this.month = month;
     }
 

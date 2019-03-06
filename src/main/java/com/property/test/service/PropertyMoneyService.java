@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,7 +23,7 @@ public class PropertyMoneyService {
 
     private final Logger log = LoggerFactory.getLogger(PropertyMoneyService.class);
 
-    private PropertyMoneyRepository propertyMoneyRepository;
+    private final PropertyMoneyRepository propertyMoneyRepository;
 
     public PropertyMoneyService(PropertyMoneyRepository propertyMoneyRepository) {
         this.propertyMoneyRepository = propertyMoneyRepository;
@@ -61,6 +63,15 @@ public class PropertyMoneyService {
     public Optional<PropertyMoney> findOne(Long id) {
         log.debug("Request to get PropertyMoney : {}", id);
         return propertyMoneyRepository.findById(id);
+    }
+
+
+    public Optional<PropertyMoney> findOneByUserId(String userId, int year, int monthValue) {
+        return propertyMoneyRepository.findByUserIdAndYearAndMonth(userId,year,monthValue);
+    }
+
+    public List<PropertyMoney> findAllByUserId(String userId) {
+        return propertyMoneyRepository.findAllByUserId(userId);
     }
 
     /**

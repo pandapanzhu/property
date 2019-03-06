@@ -9,6 +9,20 @@ Main page styles
     background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
     background-size: contain;
 }
+.homeSlefList {
+    height: 50px;
+    width: 100%;
+    border-bottom: inset;
+    span {
+        font-size: 30px;
+    }
+    .home-list-span {
+        float: right;
+        width: 30%;
+        text-align: right;
+        margin-right: 5%;
+    }
+}
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
 @media only screen and (-webkit-min-device-pixel-ratio: 2),

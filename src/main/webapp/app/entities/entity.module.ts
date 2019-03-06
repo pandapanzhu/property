@@ -4,6 +4,18 @@ import { RouterModule } from '@angular/router';
 @NgModule({
     imports: [
         RouterModule.forChild([
+            {
+                path: 'property-serve',
+                loadChildren: './property-serve/property-serve.module#PropertyPropertyServeModule'
+            },
+            {
+                path: 'property-money',
+                loadChildren: './property-money/property-money.module#PropertyPropertyMoneyModule'
+            },
+            {
+                path: 'stuff',
+                loadChildren: './stuff/stuff.module#PropertyStuffModule'
+            }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
     ],

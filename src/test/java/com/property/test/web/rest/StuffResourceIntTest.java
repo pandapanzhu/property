@@ -129,7 +129,6 @@ public class StuffResourceIntTest {
         Stuff stuff = new Stuff()
             .userId(DEFAULT_USER_ID)
             .stuffname(DEFAULT_STUFFNAME)
-            .gender(DEFAULT_GENDER)
             .phone(DEFAULT_PHONE)
             .email(DEFAULT_EMAIL)
             .idcard(DEFAULT_IDCARD)
@@ -165,7 +164,6 @@ public class StuffResourceIntTest {
         Stuff testStuff = stuffList.get(stuffList.size() - 1);
         assertThat(testStuff.getUserId()).isEqualTo(DEFAULT_USER_ID);
         assertThat(testStuff.getStuffname()).isEqualTo(DEFAULT_STUFFNAME);
-        assertThat(testStuff.getGender()).isEqualTo(DEFAULT_GENDER);
         assertThat(testStuff.getPhone()).isEqualTo(DEFAULT_PHONE);
         assertThat(testStuff.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testStuff.getIdcard()).isEqualTo(DEFAULT_IDCARD);
@@ -344,7 +342,6 @@ public class StuffResourceIntTest {
         updatedStuff
             .userId(UPDATED_USER_ID)
             .stuffname(UPDATED_STUFFNAME)
-            .gender(UPDATED_GENDER)
             .phone(UPDATED_PHONE)
             .email(UPDATED_EMAIL)
             .idcard(UPDATED_IDCARD)
@@ -367,7 +364,6 @@ public class StuffResourceIntTest {
         Stuff testStuff = stuffList.get(stuffList.size() - 1);
         assertThat(testStuff.getUserId()).isEqualTo(UPDATED_USER_ID);
         assertThat(testStuff.getStuffname()).isEqualTo(UPDATED_STUFFNAME);
-        assertThat(testStuff.getGender()).isEqualTo(UPDATED_GENDER);
         assertThat(testStuff.getPhone()).isEqualTo(UPDATED_PHONE);
         assertThat(testStuff.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testStuff.getIdcard()).isEqualTo(UPDATED_IDCARD);

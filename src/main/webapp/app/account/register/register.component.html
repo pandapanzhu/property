@@ -1,26 +1,26 @@
 <div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1>Registration</h1>
+            <h1>万科物业注册中心</h1>
 
             <div class="alert alert-success" *ngIf="success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
+                <strong>注册成功!</strong> 请检查您的邮箱，以激活账号.
             </div>
 
             <div class="alert alert-danger" *ngIf="error">
-                <strong>Registration failed!</strong> Please try again later.
+                <strong>注册失败!</strong> 请联系管理员并稍后再试.
             </div>
 
             <div class="alert alert-danger" *ngIf="errorUserExists">
-                <strong>Login name already registered!</strong> Please choose another one.
+                <strong>用户名已存在!</strong> 请输入其他用户名.
             </div>
 
             <div class="alert alert-danger" *ngIf="errorEmailExists">
-                <strong>Email is already in use!</strong> Please choose another one.
+                <strong>邮箱已经被使用!</strong>请输入其他邮箱.
             </div>
 
             <div class="alert alert-danger" *ngIf="doNotMatch">
-                The password and its confirmation do not match!
+                密码确认失败!
             </div>
         </div>
     </div>
@@ -33,19 +33,19 @@
                             required minlength="1" maxlength="50" pattern="^[_.@A-Za-z0-9-]*$">
                     <div *ngIf="login.dirty && login.invalid">
                         <small class="form-text text-danger" *ngIf="login.errors.required">
-                            Your username is required.
+                            请输入您的用户名.
                         </small>
                         <small class="form-text text-danger" *ngIf="login.errors.minlength"
                                >
-                            Your username is required to be at least 1 character.
+                            用户名最短长度为1.
                         </small>
                         <small class="form-text text-danger" *ngIf="login.errors.maxlength"
                                >
-                            Your username cannot be longer than 50 characters.
+                            用户名最长长度为50.
                         </small>
                         <small class="form-text text-danger" *ngIf="login.errors.pattern"
                               >
-                            Your username can only contain letters and digits.
+                            用户名非法
                         </small>
                     </div>
                 </div>
@@ -56,19 +56,19 @@
                     <div *ngIf="email.dirty && email.invalid">
                         <small class="form-text text-danger" *ngIf="email.errors.required"
                                >
-                            Your email is required.
+                            请输入您的邮箱.
                         </small>
                         <small class="form-text text-danger" *ngIf="email.errors.invalid"
                               >
-                            Your email is invalid.
+                            邮箱非法.
                         </small>
                         <small class="form-text text-danger" *ngIf="email.errors.minlength"
                               >
-                            Your email is required to be at least 5 characters.
+                            邮箱最短长度为5.
                         </small>
                         <small class="form-text text-danger" *ngIf="email.errors.maxlength"
                               >
-                            Your email cannot be longer than 100 characters.
+                            邮箱最长长度为100.
                         </small>
                     </div>
                 </div>
@@ -79,15 +79,15 @@
                     <div *ngIf="password.dirty && password.invalid">
                         <small class="form-text text-danger" *ngIf="password.errors.required"
                                >
-                            Your password is required.
+                            请输入您的密码.
                         </small>
                         <small class="form-text text-danger" *ngIf="password.errors.minlength"
                                >
-                            Your password is required to be at least 4 characters.
+                            密码最短长度为4.
                         </small>
                         <small class="form-text text-danger" *ngIf="password.errors.maxlength"
                                >
-                            Your password cannot be longer than 50 characters.
+                            密码最长长度为100.
                         </small>
                     </div>
                     <jhi-password-strength-bar [passwordToCheck]="registerAccount.password"></jhi-password-strength-bar>
@@ -99,15 +99,15 @@
                     <div *ngIf="confirmPasswordInput.dirty && confirmPasswordInput.invalid">
                         <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.required"
                               >
-                            Your confirmation password is required.
+                            请输入您的密码.
                         </small>
                         <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.minlength"
                              >
-                            Your confirmation password is required to be at least 4 characters.
+                            密码最短长度为4.
                         </small>
                         <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.maxlength"
                               >
-                            Your confirmation password cannot be longer than 50 characters.
+                            密码最长长度为100.
                         </small>
                     </div>
                 </div>
@@ -116,8 +116,8 @@
             </form>
             <p></p>
             <div class="alert alert-warning">
-                <span>If you want to </span>
-                <a class="alert-link" (click)="openLogin()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
+                <span>已有账号？ </span>
+                <a class="alert-link" (click)="openLogin()">点击登录</a>
             </div>
         </div>
     </div>

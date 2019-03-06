@@ -45,6 +45,18 @@ export class StuffService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
+    findByEmail(email: string): Observable<EntityResponseType> {
+        return this.http
+            .get<IStuff>(SERVER_API_URL + 'api/stuff' + `/${email}`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
+    findByUserId(email: number): Observable<EntityResponseType> {
+        return this.http
+            .get<IStuff>(SERVER_API_URL + 'api/stuff' + `/${email}`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
