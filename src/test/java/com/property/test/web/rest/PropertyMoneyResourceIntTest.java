@@ -53,6 +53,7 @@ public class PropertyMoneyResourceIntTest {
     private static final Boolean DEFAULT_IS_PAY = false;
     private static final Boolean UPDATED_IS_PAY = true;
 
+
     private static final Integer DEFAULT_YEAR = 2019;
     private static final Integer UPDATED_YEAR = 2010;
 

@@ -1,4 +1,3 @@
-/* tslint:disable max-line-length */
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';

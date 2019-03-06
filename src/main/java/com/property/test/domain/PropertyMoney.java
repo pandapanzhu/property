@@ -1,10 +1,5 @@
 package com.property.test.domain;
 
-
-
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
