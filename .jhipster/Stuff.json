@@ -1,0 +1,77 @@
+{
+    "fluentMethods": true,
+    "fields": [
+        {
+            "fieldName": "userId",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "stuffname",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "gender",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "phone",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "^[0-9]{11}$"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "idcard",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        
+        {
+            "fieldName": "remark",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dlt",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "create_user",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createDate",
+            "fieldType": "Date"
+        },
+        {
+            "fieldName": "update_user",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "update_date",
+            "fieldType": "Date"
+        }
+    ],
+    "service": "serviceClass",
+    "entityTableName": "stuff",
+    "pagination": "pagination",
+    "searchEngine": true,
+    "enableEntityAudit": true
+}

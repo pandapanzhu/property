@@ -21,7 +21,7 @@ public class StuffService {
 
     private final Logger log = LoggerFactory.getLogger(StuffService.class);
 
-    private StuffRepository stuffRepository;
+    private final StuffRepository stuffRepository;
 
     public StuffService(StuffRepository stuffRepository) {
         this.stuffRepository = stuffRepository;
