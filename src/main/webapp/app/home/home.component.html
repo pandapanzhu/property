@@ -23,13 +23,13 @@
                     <span>{{currentMoney}} 元</span>
                 </div>
             </div>
-            <div class="homeSlefList" *ngSwitchCase="true" routerLink="property-money" routerLinkActive="active"  [routerLinkActiveOptions]="{ exact: true }" >
+            <div class="homeSlefList" *ngSwitchCase="true" [routerLink]="['/property-money', account.id, 'self']"  routerLinkActive="active"  [routerLinkActiveOptions]="{ exact: true }" >
                 <span class="home-list "> 我的订单 </span> 
                 <div class="home-list-span" >
                     <span> > </span>
                 </div>
             </div>
-            <div class="homeSlefList" *ngSwitchCase="true" routerLink="property-serve" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
+            <div class="homeSlefList" *ngSwitchCase="true"  [routerLink]="['/property-serve', account.id, 'self']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
                 <span class="home-list "> 我的服务 </span> 
                 <div class="home-list-span" >
                     <span> > </span>

@@ -66,7 +66,9 @@ export class HomeComponent implements OnInit {
         // 通过账号名称找到对应的用户
         this.stuffService
             .findByUserId(this.account.id)
-            .subscribe((res: HttpResponse<IStuff>) => (this.stuff = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: HttpResponse<IStuff>) => (this.stuff = res.body), 
+                        (res: HttpErrorResponse) => this.onError(res.message)
+            );
 
         this.propertyMoneyService
             .findByUserId(this.account.id)
@@ -78,9 +80,7 @@ export class HomeComponent implements OnInit {
 
     queryMoneySuccess(data: IPropertyMoney, headers: HttpHeaders) {
         this.money = data;
-        this.currentMoney = this.money.isPay ? '0.00' : this.money.should + '';
-        console.log(this.currentMoney);
-        console.log(this.money);
+        this.currentMoney =this.money==null ? '0.00' : this.money.isPay ? '0.00' : this.money.should + '';
     }
 
     onError(errorMessage: string) {

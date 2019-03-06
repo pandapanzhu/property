@@ -40,6 +40,13 @@ export class PropertyServeComponent implements OnInit, OnDestroy {
         protected eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
+
+        this.activatedRoute.data.subscribe(
+            ({ propertyServes }) => {
+            this.propertyServes = propertyServes;
+            return;
+        });
+
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
             this.previousPage = data.pagingParams.page;

@@ -49,7 +49,7 @@ public class PropertyMoneyService {
     @Transactional(readOnly = true)
     public Page<PropertyMoney> findAll(Pageable pageable) {
         log.debug("Request to get all PropertyMonies");
-        return propertyMoneyRepository.findAll(pageable);
+       return propertyMoneyRepository.findAll(pageable);
     }
 
 

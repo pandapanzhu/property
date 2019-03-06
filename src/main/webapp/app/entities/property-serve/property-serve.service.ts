@@ -45,6 +45,12 @@ export class PropertyServeService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
+    findAllByUserId(id: number): Observable<EntityArrayResponseType> {
+        return this.http
+            .get<IPropertyServe[]>(SERVER_API_URL + 'api/allPropertyServe' + `/${id}`, { observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

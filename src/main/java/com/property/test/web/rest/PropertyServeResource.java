@@ -1,4 +1,5 @@
 package com.property.test.web.rest;
+import com.property.test.domain.PropertyMoney;
 import com.property.test.domain.PropertyServe;
 import com.property.test.service.PropertyServeService;
 import com.property.test.web.rest.errors.BadRequestAlertException;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -103,6 +105,12 @@ public class PropertyServeResource {
         log.debug("REST request to get PropertyServe : {}", id);
         Optional<PropertyServe> propertyServe = propertyServeService.findOne(id);
         return ResponseUtil.wrapOrNotFound(propertyServe);
+    }
+
+    @GetMapping("allPropertyServe/{userId}")
+    public ResponseEntity<List<PropertyServe>> getAllPropertyMoneyByUserId(@PathVariable String userId) {
+        List<PropertyServe> propertyServes = propertyServeService.findAllByUserId(userId);
+        return ResponseEntity.ok().body(propertyServes);
     }
 
     /**

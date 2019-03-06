@@ -29,6 +29,22 @@ export class PropertyServeResolve implements Resolve<IPropertyServe> {
     }
 }
 
+@Injectable({ providedIn: 'root' })
+export class PropertyServeListResolve implements Resolve<IPropertyServe[]> {
+    constructor(private service: PropertyServeService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPropertyServe[]> {
+        const id = route.params['userId'] ? route.params['userId'] : null;
+        if (id) {
+            return this.service.findAllByUserId(id).pipe(
+                filter((response: HttpResponse<IPropertyServe[]>) => response.ok),
+                map((propertyServe: HttpResponse<IPropertyServe[]>) => propertyServe.body)
+            );
+        }
+        return null;
+    }
+}
+
 export const propertyServeRoute: Routes = [
     {
         path: '',
@@ -39,7 +55,20 @@ export const propertyServeRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
-            pageTitle: 'PropertyServes'
+            pageTitle: '物业服务'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: ':userId/self',
+        component: PropertyServeComponent,
+        resolve: {
+            pagingParams: PropertyServeListResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
+            pageTitle: '物业服务'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -51,7 +80,7 @@ export const propertyServeRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'PropertyServes'
+            pageTitle: '物业服务'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -63,7 +92,7 @@ export const propertyServeRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'PropertyServes'
+            pageTitle: '物业服务'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -75,7 +104,7 @@ export const propertyServeRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'PropertyServes'
+            pageTitle: '物业服务'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -90,7 +119,7 @@ export const propertyServePopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'PropertyServes'
+            pageTitle: '物业服务'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

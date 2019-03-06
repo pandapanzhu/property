@@ -50,6 +50,12 @@ export class PropertyMoneyService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
+    findAllByUserId(id: number): Observable<EntityArrayResponseType> {
+        return this.http
+            .get<IPropertyMoney[]>(SERVER_API_URL + 'api/allPropertyMoney' + `/${id}`, { observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
