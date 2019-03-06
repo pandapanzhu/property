@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
@@ -51,8 +52,8 @@ public class StuffResourceIntTest {
     private static final String DEFAULT_GENDER = "AAAAAAAAAA";
     private static final String UPDATED_GENDER = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PHONE = "43349757689";
-    private static final String UPDATED_PHONE = "63047616642";
+    private static final String DEFAULT_PHONE = "51349003222";
+    private static final String UPDATED_PHONE = "46876021521";
 
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
@@ -83,7 +84,7 @@ public class StuffResourceIntTest {
 
     @Autowired
     private StuffRepository stuffRepository;
-    
+
     @Autowired
     private StuffService stuffService;
 
@@ -99,6 +100,9 @@ public class StuffResourceIntTest {
     @Autowired
     private EntityManager em;
 
+    @Autowired
+    private Validator validator;
+
     private MockMvc restStuffMockMvc;
 
     private Stuff stuff;
@@ -111,7 +115,8 @@ public class StuffResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     /**
@@ -401,7 +406,7 @@ public class StuffResourceIntTest {
 
         int databaseSizeBeforeDelete = stuffRepository.findAll().size();
 
-        // Get the stuff
+        // Delete the stuff
         restStuffMockMvc.perform(delete("/api/stuffs/{id}", stuff.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());

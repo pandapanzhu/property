@@ -40,15 +40,9 @@ spring:
             hibernate.connection.provider_disables_autocommit: true
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
-            hibernate.generate_statistics: true
+            hibernate.generate_statistics: false
             hibernate.hbm2ddl.auto: validate
-    data:
-        elasticsearch:
-            properties:
-                path:
-                    home: target/elasticsearch
-    liquibase:
-        contexts: test
+            hibernate.jdbc.time_zone: UTC
     mail:
         host: localhost
     messages:
@@ -63,10 +57,6 @@ spring:
 server:
     port: 10344
     address: localhost
-
-info:
-    project:
-        version: #project.version#
 
 # ===================================================================
 # JHipster specific properties
@@ -93,12 +83,11 @@ jhipster:
         authentication:
             jwt:
                 # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-                base64-secret: ZTY1YjY4NTViY2QxNDk2M2JiZGM2MzZlZWNkYjRhMDJlOWJhN2Q2MDE1ZTRkNmVlYWU4MTgwYzFlYTE0MzQzOTcyZGUwZjhlYWIzMzJmYTQ4NmNjM2ZjOWFmYmM3NWE4NzZhOGMwZDM0MTNhZGQ5M2IzNzY0Mjk3ODMyN2FkYjE=
+                base64-secret: OTg1YTFhZjMxZDQxZTVhNjRhZTViNzA5YWY4NTRmZDkwYmJkMThiNjUxZmM3ZGQ1MTBkN2UxYTdjMjEyYTA3ZmQyYTNlOTU2MThlNGMxNGZmNDkyODFlYzBmODE2NmZkYmJhODAyZjdjYWI5ODNhYzBhODEwMzJkNjJhMjQxNDc=
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
-    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
-        jmx.enabled: true
-        logs: # Reports Dropwizard metrics in the logs
+    metrics:
+        logs: # Reports metrics in the logs
             enabled: true
             report-frequency: 60 # in seconds
 

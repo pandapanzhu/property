@@ -3,7 +3,7 @@
     "promptValues": {
       "packageName": "com.property.test"
     },
-    "jhipsterVersion": "5.5.0",
+    "jhipsterVersion": "5.8.2",
     "applicationType": "monolith",
     "baseName": "property",
     "packageName": "com.property.test",
@@ -15,17 +15,21 @@
     "databaseType": "sql",
     "devDatabaseType": "mysql",
     "prodDatabaseType": "mysql",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "messageBroker": false,
     "serviceDiscoveryType": false,
     "buildTool": "maven",
-    "enableSwaggerCodegen": true,
-    "jwtSecretKey": "ZTY1YjY4NTViY2QxNDk2M2JiZGM2MzZlZWNkYjRhMDJlOWJhN2Q2MDE1ZTRkNmVlYWU4MTgwYzFlYTE0MzQzOTcyZGUwZjhlYWIzMzJmYTQ4NmNjM2ZjOWFmYmM3NWE4NzZhOGMwZDM0MTNhZGQ5M2IzNzY0Mjk3ODMyN2FkYjE=",
-    "clientFramework": "react",
-    "useSass": false,
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OTg1YTFhZjMxZDQxZTVhNjRhZTViNzA5YWY4NTRmZDkwYmJkMThiNjUxZmM3ZGQ1MTBkN2UxYTdjMjEyYTA3ZmQyYTNlOTU2MThlNGMxNGZmNDkyODFlYzBmODE2NmZkYmJhODAyZjdjYWI5ODNhYzBhODEwMzJkNjJhMjQxNDc=",
+    "clientFramework": "angularX",
+    "useSass": true,
     "clientPackageManager": "npm",
     "testFrameworks": [],
     "jhiPrefix": "jhi",
-    "enableTranslation": false
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "enableHibernateCache": false
   }
 }

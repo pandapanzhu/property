@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
@@ -78,7 +79,7 @@ public class PropertyMoneyResourceIntTest {
 
     @Autowired
     private PropertyMoneyRepository propertyMoneyRepository;
-    
+
     @Autowired
     private PropertyMoneyService propertyMoneyService;
 
@@ -94,6 +95,9 @@ public class PropertyMoneyResourceIntTest {
     @Autowired
     private EntityManager em;
 
+    @Autowired
+    private Validator validator;
+
     private MockMvc restPropertyMoneyMockMvc;
 
     private PropertyMoney propertyMoney;
@@ -106,7 +110,8 @@ public class PropertyMoneyResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     /**
@@ -348,7 +353,7 @@ public class PropertyMoneyResourceIntTest {
 
         int databaseSizeBeforeDelete = propertyMoneyRepository.findAll().size();
 
-        // Get the propertyMoney
+        // Delete the propertyMoney
         restPropertyMoneyMockMvc.perform(delete("/api/property-monies/{id}", propertyMoney.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());

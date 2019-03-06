@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
@@ -71,7 +72,7 @@ public class PropertyServeResourceIntTest {
 
     @Autowired
     private PropertyServeRepository propertyServeRepository;
-    
+
     @Autowired
     private PropertyServeService propertyServeService;
 
@@ -87,6 +88,9 @@ public class PropertyServeResourceIntTest {
     @Autowired
     private EntityManager em;
 
+    @Autowired
+    private Validator validator;
+
     private MockMvc restPropertyServeMockMvc;
 
     private PropertyServe propertyServe;
@@ -99,7 +103,8 @@ public class PropertyServeResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     /**
@@ -329,7 +334,7 @@ public class PropertyServeResourceIntTest {
 
         int databaseSizeBeforeDelete = propertyServeRepository.findAll().size();
 
-        // Get the propertyServe
+        // Delete the propertyServe
         restPropertyServeMockMvc.perform(delete("/api/property-serves/{id}", propertyServe.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());

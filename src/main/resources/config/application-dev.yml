@@ -32,13 +32,15 @@ spring:
         livereload:
             enabled: false # we use Webpack dev server + BrowserSync for livereload
     jackson:
-        serialization.indent_output: true
+        serialization:
+            indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/property?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://localhost:3306/property?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
         password: 123456
         hikari:
+            poolName: Hikari
             auto-commit: false
             data-source-properties:
                 cachePrepStmts: true
@@ -55,13 +57,6 @@ spring:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
-    data:
-        elasticsearch:
-            properties:
-                path:
-                    home: target/elasticsearch
-    liquibase:
-        contexts: dev
     mail:
         host: localhost
         port: 25
@@ -95,20 +90,16 @@ jhipster:
     security:
         authentication:
             jwt:
-                # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-                base64-secret: ZTY1YjY4NTViY2QxNDk2M2JiZGM2MzZlZWNkYjRhMDJlOWJhN2Q2MDE1ZTRkNmVlYWU4MTgwYzFlYTE0MzQzOTcyZGUwZjhlYWIzMzJmYTQ4NmNjM2ZjOWFmYmM3NWE4NzZhOGMwZDM0MTNhZGQ5M2IzNzY0Mjk3ODMyN2FkYjE=
+                # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+                base64-secret: OTg1YTFhZjMxZDQxZTVhNjRhZTViNzA5YWY4NTRmZDkwYmJkMThiNjUxZmM3ZGQ1MTBkN2UxYTdjMjEyYTA3ZmQyYTNlOTU2MThlNGMxNGZmNDkyODFlYzBmODE2NmZkYmJhODAyZjdjYWI5ODNhYzBhODEwMzJkNjJhMjQxNDc=
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: property@localhost
         base-url: http://127.0.0.1:8080
-    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
-        jmx:
-            enabled: true
-        prometheus: 
-            enabled: false #expose metrics via prometheus 
-        logs: # Reports Dropwizard metrics in the logs
+    metrics:
+        logs: # Reports metrics in the logs
             enabled: false
             report-frequency: 60 # in seconds
     logging:
