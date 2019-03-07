@@ -17,15 +17,18 @@ export class PropertyServeUpdateComponent implements OnInit {
     isSaving: boolean;
     createDate: string;
     update_date: string;
+    types: any;
 
     constructor(protected propertyServeService: PropertyServeService, protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
+        this.types = ['帮忙', '维修', '呼叫', '投诉'];
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ propertyServe }) => {
             this.propertyServe = propertyServe;
             this.createDate = this.propertyServe.createDate != null ? this.propertyServe.createDate.format(DATE_TIME_FORMAT) : null;
             this.update_date = this.propertyServe.update_date != null ? this.propertyServe.update_date.format(DATE_TIME_FORMAT) : null;
+            this.propertyServe.type = '帮忙';
         });
     }
 

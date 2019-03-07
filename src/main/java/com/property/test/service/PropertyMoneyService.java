@@ -1,16 +1,23 @@
 package com.property.test.service;
 
 import com.property.test.domain.PropertyMoney;
+import com.property.test.domain.Stuff;
+import com.property.test.domain.User;
 import com.property.test.repository.PropertyMoneyRepository;
+import com.property.test.repository.StuffRepository;
+import com.property.test.repository.UserRepository;
+import com.property.test.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 

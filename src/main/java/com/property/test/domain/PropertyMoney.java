@@ -1,11 +1,15 @@
 package com.property.test.domain;
 
+import lombok.*;
+import org.apache.commons.lang3.RandomUtils;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -32,7 +36,6 @@ public class PropertyMoney implements Serializable {
     @Column(name = "should", precision = 10, scale = 2, nullable = false)
     private BigDecimal should;
 
-    @NotNull
     @Column(name = "is_pay", nullable = false)
     private Boolean isPay;
 
@@ -60,7 +63,7 @@ public class PropertyMoney implements Serializable {
     @Column(name = "last_modified_date")
     private Instant lastModifiedDate;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
     public Long getId() {
         return id;
     }
@@ -77,21 +80,8 @@ public class PropertyMoney implements Serializable {
         this.userId = userId;
     }
 
-    public Boolean getPay() {
-        return isPay;
-    }
-
-    public void setPay(Boolean pay) {
-        isPay = pay;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public PropertyMoney address(String address) {
-        this.address = address;
-        return this;
     }
 
     public void setAddress(String address) {
@@ -102,35 +92,20 @@ public class PropertyMoney implements Serializable {
         return should;
     }
 
-    public PropertyMoney should(BigDecimal should) {
-        this.should = should;
-        return this;
-    }
-
     public void setShould(BigDecimal should) {
         this.should = should;
     }
 
-    public Boolean isIsPay() {
+    public Boolean getPay() {
         return isPay;
     }
 
-    public PropertyMoney isPay(Boolean isPay) {
-        this.isPay = isPay;
-        return this;
-    }
-
-    public void setIsPay(Boolean isPay) {
-        this.isPay = isPay;
+    public void setIsPay(Boolean pay){
+        this.isPay = pay;
     }
 
     public Integer getYear() {
         return year;
-    }
-
-    public PropertyMoney year(Integer year) {
-        this.year = year;
-        return this;
     }
 
     public void setYear(Integer year) {
@@ -141,22 +116,12 @@ public class PropertyMoney implements Serializable {
         return month;
     }
 
-    public PropertyMoney month(Integer month) {
-        this.month = month;
-        return this;
-    }
-
     public void setMonth(Integer month) {
         this.month = month;
     }
 
     public String getRemark() {
         return remark;
-    }
-
-    public PropertyMoney remark(String remark) {
-        this.remark = remark;
-        return this;
     }
 
     public void setRemark(String remark) {
@@ -167,22 +132,12 @@ public class PropertyMoney implements Serializable {
         return dlt;
     }
 
-    public PropertyMoney dlt(Integer dlt) {
-        this.dlt = dlt;
-        return this;
-    }
-
     public void setDlt(Integer dlt) {
         this.dlt = dlt;
     }
 
     public String getCreatedBy() {
         return createdBy;
-    }
-
-    public PropertyMoney createdBy(String createdBy) {
-        this.createdBy = createdBy;
-        return this;
     }
 
     public void setCreatedBy(String createdBy) {
@@ -193,22 +148,12 @@ public class PropertyMoney implements Serializable {
         return createdDate;
     }
 
-    public PropertyMoney createdDate(Instant createdDate) {
-        this.createdDate = createdDate;
-        return this;
-    }
-
     public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
     public String getLastModifiedBy() {
         return lastModifiedBy;
-    }
-
-    public PropertyMoney lastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-        return this;
     }
 
     public void setLastModifiedBy(String lastModifiedBy) {
@@ -219,15 +164,21 @@ public class PropertyMoney implements Serializable {
         return lastModifiedDate;
     }
 
-    public PropertyMoney lastModifiedDate(Instant lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-        return this;
-    }
-
     public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public PropertyMoney(Stuff stuff) {
+        this.userId = stuff.getUserId();
+        this.address =stuff.getAddress();
+        this.should = new BigDecimal(RandomUtils.nextInt(100,300)); //100到300的随机数
+        this.isPay = Boolean.FALSE;
+        this.year = LocalDate.now().getYear();
+        this.month = LocalDate.now().getMonthValue();
+    }
+
+    public PropertyMoney() {
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -255,7 +206,7 @@ public class PropertyMoney implements Serializable {
             "id=" + getId() +
             ", address='" + getAddress() + "'" +
             ", should=" + getShould() +
-            ", isPay='" + isIsPay() + "'" +
+            ", isPay='" + getPay() + "'" +
             ", year='" + getYear() + "'" +
             ", month='" + getMonth() + "'" +
             ", remark='" + getRemark() + "'" +

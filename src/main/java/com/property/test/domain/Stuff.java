@@ -2,6 +2,9 @@ package com.property.test.domain;
 
 
 
+import com.property.test.service.dto.UserDTO;
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -14,6 +17,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "stuff")
+@Builder
 public class Stuff implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,7 +67,7 @@ public class Stuff implements Serializable {
     @Column(name = "update_date")
     private Instant update_date;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
     public Long getId() {
         return id;
     }
@@ -76,22 +80,12 @@ public class Stuff implements Serializable {
         return userId;
     }
 
-    public Stuff userId(String userId) {
-        this.userId = userId;
-        return this;
-    }
-
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
     public String getStuffname() {
         return stuffname;
-    }
-
-    public Stuff stuffname(String stuffname) {
-        this.stuffname = stuffname;
-        return this;
     }
 
     public void setStuffname(String stuffname) {
@@ -102,22 +96,12 @@ public class Stuff implements Serializable {
         return phone;
     }
 
-    public Stuff phone(String phone) {
-        this.phone = phone;
-        return this;
-    }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
     public String getEmail() {
         return email;
-    }
-
-    public Stuff email(String email) {
-        this.email = email;
-        return this;
     }
 
     public void setEmail(String email) {
@@ -128,22 +112,12 @@ public class Stuff implements Serializable {
         return idcard;
     }
 
-    public Stuff idcard(String idcard) {
-        this.idcard = idcard;
-        return this;
-    }
-
     public void setIdcard(String idcard) {
         this.idcard = idcard;
     }
 
     public String getAddress() {
         return address;
-    }
-
-    public Stuff address(String address) {
-        this.address = address;
-        return this;
     }
 
     public void setAddress(String address) {
@@ -154,22 +128,12 @@ public class Stuff implements Serializable {
         return remark;
     }
 
-    public Stuff remark(String remark) {
-        this.remark = remark;
-        return this;
-    }
-
     public void setRemark(String remark) {
         this.remark = remark;
     }
 
     public Integer getDlt() {
         return dlt;
-    }
-
-    public Stuff dlt(Integer dlt) {
-        this.dlt = dlt;
-        return this;
     }
 
     public void setDlt(Integer dlt) {
@@ -180,22 +144,12 @@ public class Stuff implements Serializable {
         return create_user;
     }
 
-    public Stuff create_user(String create_user) {
-        this.create_user = create_user;
-        return this;
-    }
-
     public void setCreate_user(String create_user) {
         this.create_user = create_user;
     }
 
     public Instant getCreateDate() {
         return createDate;
-    }
-
-    public Stuff createDate(Instant createDate) {
-        this.createDate = createDate;
-        return this;
     }
 
     public void setCreateDate(Instant createDate) {
@@ -206,11 +160,6 @@ public class Stuff implements Serializable {
         return update_user;
     }
 
-    public Stuff update_user(String update_user) {
-        this.update_user = update_user;
-        return this;
-    }
-
     public void setUpdate_user(String update_user) {
         this.update_user = update_user;
     }
@@ -219,15 +168,36 @@ public class Stuff implements Serializable {
         return update_date;
     }
 
-    public Stuff update_date(Instant update_date) {
-        this.update_date = update_date;
-        return this;
-    }
-
     public void setUpdate_date(Instant update_date) {
         this.update_date = update_date;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public Stuff(User newUser, UserDTO userDTO) {
+        this.userId = newUser.getId().toString();
+        this.stuffname = newUser.getLogin();
+        this.address =userDTO.getAddress();
+        this.idcard = userDTO.getIdcard();
+        this.phone = userDTO.getPhone();
+        this.email = newUser.getEmail();
+    }
+
+    public Stuff(@NotNull String userId, @NotNull String stuffname, @NotNull @Pattern(regexp = "^[0-9]{11}$") String phone, String email, @NotNull String idcard, String address, String remark, Integer dlt, String create_user, Instant createDate, String update_user, Instant update_date) {
+        this.userId = userId;
+        this.stuffname = stuffname;
+        this.phone = phone;
+        this.email = email;
+        this.idcard = idcard;
+        this.address = address;
+        this.remark = remark;
+        this.dlt = dlt;
+        this.create_user = create_user;
+        this.createDate = createDate;
+        this.update_user = update_user;
+        this.update_date = update_date;
+    }
+
+    public Stuff() {
+    }
 
     @Override
     public boolean equals(Object o) {

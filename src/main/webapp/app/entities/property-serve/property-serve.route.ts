@@ -38,10 +38,19 @@ export class PropertyServeListResolve implements Resolve<IPropertyServe[]> {
         if (id) {
             return this.service.findAllByUserId(id).pipe(
                 filter((response: HttpResponse<IPropertyServe[]>) => response.ok),
-                map((propertyServe: HttpResponse<IPropertyServe[]>) => propertyServe.body)
+                map((propertyServe: HttpResponse<IPropertyServe[]>) => this.newDate(propertyServe))
             );
         }
         return null;
+    }
+
+    newDate(propertyServe: HttpResponse<IPropertyServe[]>) {
+        const body = propertyServe.body;
+        for (const i in body) {
+            const date = body[i].createDate.format('YYYY-MM-DD');
+            body[i].remark = date;
+        }
+        return body;
     }
 }
 

@@ -22,7 +22,6 @@ public class PropertyServe implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Column(name = "user_id", nullable = false)
     private String userId;
 

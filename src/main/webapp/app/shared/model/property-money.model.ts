@@ -5,6 +5,7 @@ export interface IPropertyMoney {
     address?: string;
     should?: number;
     isPay?: boolean;
+    pay?: boolean;
     year?: string;
     month?: string;
     remark?: string;
@@ -21,6 +22,7 @@ export class PropertyMoney implements IPropertyMoney {
         public address?: string,
         public should?: number,
         public isPay?: boolean,
+        public pay?: boolean,
         public year?: string,
         public month?: string,
         public remark?: string,
@@ -30,6 +32,6 @@ export class PropertyMoney implements IPropertyMoney {
         public lastModifiedBy?: string,
         public lastModifiedDate?: Moment
     ) {
-        this.isPay = this.isPay || false;
+        this.isPay = this.pay || false;
     }
 }

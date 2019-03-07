@@ -8,7 +8,7 @@ import { PropertyMoneyService } from 'app/entities/property-money/property-money
 import { IPropertyMoney } from 'app/shared/model/property-money.model';
 import { PropertyServeService } from 'app/entities/property-serve/property-serve.service';
 import { IPropertyServe } from 'app/shared/model/property-serve.model';
-
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 @Component({
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     stuff: IStuff;
     money: IPropertyMoney;
     serve: IPropertyServe;
-    currentMoney: string = '0.00';
+    currentMoney: any = '0.00';
 
     constructor(
         private accountService: AccountService,
@@ -66,9 +66,7 @@ export class HomeComponent implements OnInit {
         // 通过账号名称找到对应的用户
         this.stuffService
             .findByUserId(this.account.id)
-            .subscribe((res: HttpResponse<IStuff>) => (this.stuff = res.body), 
-                        (res: HttpErrorResponse) => this.onError(res.message)
-            );
+            .subscribe((res: HttpResponse<IStuff>) => (this.stuff = res.body), (res: HttpErrorResponse) => this.onError(res.message));
 
         this.propertyMoneyService
             .findByUserId(this.account.id)
@@ -80,7 +78,7 @@ export class HomeComponent implements OnInit {
 
     queryMoneySuccess(data: IPropertyMoney, headers: HttpHeaders) {
         this.money = data;
-        this.currentMoney =this.money==null ? '0.00' : this.money.isPay ? '0.00' : this.money.should + '';
+        this.currentMoney = this.money == null ? '0.00' : this.money.pay ? '0.00' : this.money.should + '.00';
     }
 
     onError(errorMessage: string) {
@@ -89,6 +87,25 @@ export class HomeComponent implements OnInit {
 
     // 缴费弹框
     payProperty() {
-        alert('您的账单将从余额自动扣除');
+        if (this.currentMoney > 0) {
+            const pay = confirm('您确定要缴纳本月物业费吗');
+            if (pay) {
+                this.money.isPay = true;
+                this.subscribeToSaveResponse(this.propertyMoneyService.update(this.money));
+            } else {
+                return;
+            }
+        } else {
+            alert('您已经缴过费了，本月无需缴费');
+        }
+    }
+    protected subscribeToSaveResponse(result: Observable<HttpResponse<IPropertyMoney>>) {
+        result.subscribe(
+            (res: HttpResponse<IPropertyMoney>) => this.onSaveSuccess(),
+            (res: HttpErrorResponse) => alert('缴费失败，请联系管理员')
+        );
+    }
+    onSaveSuccess() {
+        this.ngOnInit();
     }
 }

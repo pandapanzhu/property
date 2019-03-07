@@ -29,6 +29,22 @@ export class PropertyMoneyResolve implements Resolve<IPropertyMoney> {
     }
 }
 
+@Injectable({ providedIn: 'root' })
+export class PropertyMoneyListResolve implements Resolve<IPropertyMoney[]> {
+    constructor(private service: PropertyMoneyService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPropertyMoney[]> {
+        const id = route.params['userId'] ? route.params['userId'] : null;
+        if (id) {
+            return this.service.findAllByUserId(id).pipe(
+                filter((response: HttpResponse<PropertyMoney[]>) => response.ok),
+                map((propertyMoney: HttpResponse<PropertyMoney[]>) => propertyMoney.body)
+            );
+        }
+        return null;
+    }
+}
+
 export const propertyMoneyRoute: Routes = [
     {
         path: '',
@@ -39,10 +55,24 @@ export const propertyMoneyRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
-            pageTitle: 'PropertyMonies'
+            pageTitle: '我的订单'
         },
         canActivate: [UserRouteAccessService]
     },
+    {
+        path: ':userId/self',
+        component: PropertyMoneyComponent,
+        resolve: {
+            pagingParams: PropertyMoneyListResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
+            pageTitle: '我的订单'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+
     {
         path: ':id/view',
         component: PropertyMoneyDetailComponent,
@@ -51,7 +81,7 @@ export const propertyMoneyRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'PropertyMonies'
+            pageTitle: '我的订单'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -63,7 +93,7 @@ export const propertyMoneyRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'PropertyMonies'
+            pageTitle: '我的订单'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -75,7 +105,7 @@ export const propertyMoneyRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'PropertyMonies'
+            pageTitle: '我的订单'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -90,7 +120,7 @@ export const propertyMoneyPopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'PropertyMonies'
+            pageTitle: '我的订单'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

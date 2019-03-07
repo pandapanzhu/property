@@ -69,7 +69,7 @@ public class PropertyServeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/property-serves")
-    public ResponseEntity<PropertyServe> updatePropertyServe(@Valid @RequestBody PropertyServe propertyServe) throws URISyntaxException {
+    public ResponseEntity<PropertyServe> updatePropertyServe(@RequestBody PropertyServe propertyServe) throws URISyntaxException {
         log.debug("REST request to update PropertyServe : {}", propertyServe);
         if (propertyServe.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

@@ -41,18 +41,16 @@ export class PropertyServeComponent implements OnInit, OnDestroy {
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
 
-        this.activatedRoute.data.subscribe(
-            ({ propertyServes }) => {
-            this.propertyServes = propertyServes;
-            return;
+        this.activatedRoute.data.subscribe(data => {
+            this.propertyServes = data.pagingParams;
         });
 
-        this.routeData = this.activatedRoute.data.subscribe(data => {
-            this.page = data.pagingParams.page;
-            this.previousPage = data.pagingParams.page;
-            this.reverse = data.pagingParams.ascending;
-            this.predicate = data.pagingParams.predicate;
-        });
+        // this.routeData = this.activatedRoute.data.subscribe(data => {
+        //     this.page = data.pagingParams.page;
+        //     this.previousPage = data.pagingParams.page;
+        //     this.reverse = data.pagingParams.ascending;
+        //     this.predicate = data.pagingParams.predicate;
+        // });
     }
 
     loadAll() {
@@ -99,7 +97,7 @@ export class PropertyServeComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
+        // this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });

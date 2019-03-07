@@ -1,31 +1,19 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="stuff">
-            <h2><span>Stuff</span> {{stuff.id}}</h2>
+            <h2><span>欢迎您，</span> {{stuff.stuffname}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>User Id</span></dt>
-                <dd>
-                    <span>{{stuff.userId}}</span>
-                </dd>
-                <dt><span>Stuffname</span></dt>
-                <dd>
-                    <span>{{stuff.stuffname}}</span>
-                </dd>
-                <dt><span>Gender</span></dt>
-                <dd>
-                    <span>{{stuff.gender}}</span>
-                </dd>
-                <dt><span>Phone</span></dt>
+                <dt><span>手机号码：</span></dt>
                 <dd>
                     <span>{{stuff.phone}}</span>
                 </dd>
-                <dt><span>Email</span></dt>
+                <dt><span>邮箱：</span></dt>
                 <dd>
                     <span>{{stuff.email}}</span>
                 </dd>
-                <dt><span>Idcard</span></dt>
+                <dt><span>身份证</span></dt>
                 <dd>
                     <span>{{stuff.idcard}}</span>
                 </dd>

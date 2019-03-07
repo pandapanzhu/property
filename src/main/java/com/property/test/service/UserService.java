@@ -2,8 +2,12 @@ package com.property.test.service;
 
 import com.property.test.config.Constants;
 import com.property.test.domain.Authority;
+import com.property.test.domain.PropertyMoney;
+import com.property.test.domain.Stuff;
 import com.property.test.domain.User;
 import com.property.test.repository.AuthorityRepository;
+import com.property.test.repository.PropertyMoneyRepository;
+import com.property.test.repository.StuffRepository;
 import com.property.test.repository.UserRepository;
 import com.property.test.security.AuthoritiesConstants;
 import com.property.test.security.SecurityUtils;
@@ -20,7 +24,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -34,17 +40,18 @@ public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
-    private final UserRepository userRepository;
+    @Resource
+    private UserRepository userRepository;
+    @Resource
+    private PasswordEncoder passwordEncoder;
+    @Resource
+    private AuthorityRepository authorityRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    @Resource
+    private StuffRepository stuffRepository;
 
-    private final AuthorityRepository authorityRepository;
-
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authorityRepository = authorityRepository;
-    }
+    @Resource
+    private PropertyMoneyRepository propertyMoneyRepository;
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -93,6 +100,8 @@ public class UserService {
                 throw new EmailAlreadyUsedException();
             }
         });
+
+
         User newUser = new User();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
@@ -111,7 +120,17 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
-        log.debug("Created Information for User: {}", newUser);
+        log.debug("新建User成功: {}", newUser);
+
+        //先新建user，再来新建Stuff
+        Stuff stuff =new Stuff(newUser,userDTO);
+        stuffRepository.save(stuff);
+        log.info("新建Stuff成功");
+
+        //新建了Stuff 还要新建房屋账单
+        Optional<PropertyMoney> money = propertyMoneyRepository.findByUserIdAndYearAndMonth(newUser.getId().toString(), LocalDate.now().getYear(),LocalDate.now().getMonthValue());
+        if(!money.isPresent()) propertyMoneyRepository.save(new PropertyMoney(stuff));
+
         return newUser;
     }
 

@@ -28,8 +28,8 @@
         <div class="col-md-8">
             <form name="form" role="form" (ngSubmit)="register()" #registerForm="ngForm" *ngIf="!success">
                 <div class="form-group">
-                    <label class="form-control-label" for="login">Username</label>
-                    <input type="text" class="form-control" [(ngModel)]="registerAccount.login" id="login" name="login" #login="ngModel" placeholder="Your username"
+                    <label class="form-control-label" for="login">用户名</label>
+                    <input type="text" class="form-control" [(ngModel)]="registerAccount.login" id="login" name="login" #login="ngModel" placeholder="请输入用户名"
                             required minlength="1" maxlength="50" pattern="^[_.@A-Za-z0-9-]*$">
                     <div *ngIf="login.dirty && login.invalid">
                         <small class="form-text text-danger" *ngIf="login.errors.required">
@@ -50,8 +50,77 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" #email="ngModel" placeholder="Your email"
+                    <label class="form-control-label" for="idcard">身份证</label>
+                    <input type="text" class="form-control" [(ngModel)]="registerAccount.idcard" id="idcard" name="idcard" #idcard="ngModel" placeholder="请输入身份证"
+                            required minlength="15" maxlength="18" pattern="^[_.A-Z0-9-]*$">
+                    <div *ngIf="idcard.dirty && idcard.invalid">
+                        <small class="form-text text-danger" *ngIf="idcard.errors.required">
+                            请输入您的身份证.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="idcard.errors.minlength"
+                               >
+                            请输入18位身份证号码.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="idcard.errors.maxlength"
+                               >
+                            请输入18位身份证号码.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="idcard.errors.pattern"
+                              >
+                            非法身份证
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="phone">手机号码</label>
+                    <input type="text" class="form-control" [(ngModel)]="registerAccount.phone" id="idcard" name="phone" #phone="ngModel" placeholder="请输入手机号码"
+                            required minlength="5" maxlength="11" pattern="^[_.0-9-]*$">
+                    <div *ngIf="phone.dirty && phone.invalid">
+                        <small class="form-text text-danger" *ngIf="phone.errors.required">
+                            请输入您的手机号码.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="phone.errors.minlength"
+                               >
+                            请输入11位手机号码.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="phone.errors.maxlength"
+                               >
+                            请输入11位手机号码.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="phone.errors.pattern"
+                              >
+                            非法手机号码
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="address">住址</label>
+                    <input type="text" class="form-control" [(ngModel)]="registerAccount.address" id="address" name="address" #address="ngModel" placeholder="请输入住址"
+                            required minlength="1" maxlength="50" >
+                    <div *ngIf="address.dirty && address.invalid">
+                        <small class="form-text text-danger" *ngIf="address.errors.required">
+                            请输入您的住址.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="address.errors.minlength"
+                               >
+                            住址最短长度为1.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="address.errors.maxlength"
+                               >
+                            住址最长长度为50.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="address.errors.pattern"
+                              >
+                            非法住址
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="email">邮箱</label>
+                    <input type="email" class="form-control" id="email" name="email" #email="ngModel" placeholder="请输入您的邮箱"
                             [(ngModel)]="registerAccount.email" minlength=5 maxlength=254 email required>
                     <div *ngIf="email.dirty && email.invalid">
                         <small class="form-text text-danger" *ngIf="email.errors.required"
@@ -73,8 +142,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="password">New password</label>
-                    <input type="password" class="form-control" id="password" name="password" #password="ngModel" placeholder="New password"
+                    <label class="form-control-label" for="password">密码</label>
+                    <input type="password" class="form-control" id="password" name="password" #password="ngModel" placeholder="请输入您的密码"
                             [(ngModel)]="registerAccount.password" minlength=4 maxlength=50 required>
                     <div *ngIf="password.dirty && password.invalid">
                         <small class="form-text text-danger" *ngIf="password.errors.required"
@@ -93,8 +162,8 @@
                     <jhi-password-strength-bar [passwordToCheck]="registerAccount.password"></jhi-password-strength-bar>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="confirmPassword">New password confirmation</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" #confirmPasswordInput="ngModel" placeholder="Confirm the new password"
+                    <label class="form-control-label" for="confirmPassword">请确认密码</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" #confirmPasswordInput="ngModel" placeholder="请确认您的密码"
                             [(ngModel)]="confirmPassword" minlength=4 maxlength=50 required>
                     <div *ngIf="confirmPasswordInput.dirty && confirmPasswordInput.invalid">
                         <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.required"
@@ -112,7 +181,7 @@
                     </div>
                 </div>
 
-                <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary">Register</button>
+                <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary">注册</button>
             </form>
             <p></p>
             <div class="alert alert-warning">

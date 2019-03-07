@@ -40,12 +40,17 @@ export class PropertyMoneyComponent implements OnInit, OnDestroy {
         protected eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
-            this.page = data.pagingParams.page;
-            this.previousPage = data.pagingParams.page;
-            this.reverse = data.pagingParams.ascending;
-            this.predicate = data.pagingParams.predicate;
+
+        this.activatedRoute.data.subscribe(data => {
+            this.propertyMonies = data.pagingParams;
         });
+
+        // this.routeData = this.activatedRoute.data.subscribe(data => {
+        //     this.page = data.pagingParams.page;
+        //     this.previousPage = data.pagingParams.page;
+        //     this.reverse = data.pagingParams.ascending;
+        //     this.predicate = data.pagingParams.predicate;
+        // });
     }
 
     loadAll() {
@@ -92,7 +97,7 @@ export class PropertyMoneyComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
+        // this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
