@@ -47,8 +47,10 @@ export class PropertyServeListResolve implements Resolve<IPropertyServe[]> {
     newDate(propertyServe: HttpResponse<IPropertyServe[]>) {
         const body = propertyServe.body;
         for (const i in body) {
-            const date = body[i].createDate.format('YYYY-MM-DD');
-            body[i].remark = date;
+            if (body[i] !== null) {
+                const date = body[i].createDate.format('YYYY-MM-DD');
+                body[i].remark = date;
+            }
         }
         return body;
     }

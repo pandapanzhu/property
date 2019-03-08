@@ -17,7 +17,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "stuff")
-@Builder
 public class Stuff implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -179,21 +178,6 @@ public class Stuff implements Serializable {
         this.idcard = userDTO.getIdcard();
         this.phone = userDTO.getPhone();
         this.email = newUser.getEmail();
-    }
-
-    public Stuff(@NotNull String userId, @NotNull String stuffname, @NotNull @Pattern(regexp = "^[0-9]{11}$") String phone, String email, @NotNull String idcard, String address, String remark, Integer dlt, String create_user, Instant createDate, String update_user, Instant update_date) {
-        this.userId = userId;
-        this.stuffname = stuffname;
-        this.phone = phone;
-        this.email = email;
-        this.idcard = idcard;
-        this.address = address;
-        this.remark = remark;
-        this.dlt = dlt;
-        this.create_user = create_user;
-        this.createDate = createDate;
-        this.update_user = update_user;
-        this.update_date = update_date;
     }
 
     public Stuff() {
