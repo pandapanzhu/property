@@ -83,6 +83,18 @@ spring:
             enabled: false
     thymeleaf:
         mode: HTML
+    mail:
+        host: smtp.163.com
+        username: pandapanzhu@163.com
+        password: ZSlaoyao1
+        port: 25
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+                        required: true
 
 server:
     servlet:
