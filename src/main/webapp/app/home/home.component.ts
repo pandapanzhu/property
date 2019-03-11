@@ -38,6 +38,8 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.accountService.identity().then((account: Account) => {
             this.account = account;
+            console.log('当前账号为：');
+            console.log(this.account);
             this.initData();
         });
         this.registerAuthenticationSuccess();

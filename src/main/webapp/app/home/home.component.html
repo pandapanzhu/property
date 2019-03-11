@@ -20,7 +20,7 @@
             <div class="homeSlefList" *ngSwitchCase="true" (click)="payProperty()">
                 <span class="home-list "> 本月账单 </span> 
                 <div class="home-list-span" >
-                    <span>{{currentMoney}} 元</span>
+                    <span>{{currentMoney}} ￥</span>
                 </div>
             </div>
             <div class="homeSlefList" *ngSwitchCase="true" [routerLink]="['/property-money', account.id, 'self']"  routerLinkActive="active"  [routerLinkActiveOptions]="{ exact: true }" >

@@ -127,7 +127,7 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: property@localhost
+        from: pandapanzhu@163.com
     swagger:
         default-include-pattern: /api/.*
         title: property API
