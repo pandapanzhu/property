@@ -40,7 +40,9 @@ export class HomeComponent implements OnInit {
             this.account = account;
             console.log('当前账号为：');
             console.log(this.account);
-            this.initData();
+            if (this.account != null && this.account != undefined) {
+                this.initData();
+            }
         });
         this.registerAuthenticationSuccess();
     }
@@ -49,6 +51,9 @@ export class HomeComponent implements OnInit {
         this.eventManager.subscribe('authenticationSuccess', message => {
             this.accountService.identity().then(account => {
                 this.account = account;
+                if (this.account != null && this.account != undefined) {
+                    this.initData();
+                }
             });
         });
     }
