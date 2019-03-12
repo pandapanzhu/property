@@ -96,9 +96,13 @@ public class AccountResource {
      */
     @GetMapping("/account")
     public UserDTO getAccount() {
-        return userService.getUserWithAuthorities()
-            .map(UserDTO::new)
-            .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
+        try{
+            return userService.getUserWithAuthorities()
+                .map(UserDTO::new).get();
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
     /**

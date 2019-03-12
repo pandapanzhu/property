@@ -11,7 +11,7 @@
                     <span id="home-logged-message" *ngIf="account"> 欢迎您， {{account.login}} </span>
                 </div>
             </div>
-            <div class="homeSlefList" *ngSwitchCase="true" [routerLink]="['/stuff', stuffId, 'edit']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
+            <div class="homeSlefList" *ngSwitchCase="true" [routerLink]="['/stuff', stuffId, 'edit']"  >
                 <span class="home-list "> 个人中心 </span> 
                 <div class="home-list-span" >
                     <span> > </span>
@@ -23,13 +23,13 @@
                     <span>{{currentMoney}} ￥</span>
                 </div>
             </div>
-            <div class="homeSlefList" *ngSwitchCase="true" [routerLink]="['/property-money', account.id, 'self']"  routerLinkActive="active"  [routerLinkActiveOptions]="{ exact: true }" >
+            <div class="homeSlefList" *ngSwitchCase="true" [routerLink]="['/property-money', account.id, 'self']"  >
                 <span class="home-list "> 我的订单 </span> 
                 <div class="home-list-span" >
                     <span> > </span>
                 </div>
             </div>
-            <div class="homeSlefList" *ngSwitchCase="true"  [routerLink]="['/property-serve', account.id, 'self']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
+            <div class="homeSlefList" *ngSwitchCase="true"  [routerLink]="['/property-serve', account.id, 'self']" >
                 <span class="home-list "> 我的服务 </span> 
                 <div class="home-list-span" >
                     <span> > </span>

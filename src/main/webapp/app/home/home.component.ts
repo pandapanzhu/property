@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
             this.account = account;
             console.log('当前账号为：');
             console.log(this.account);
-            if (this.account != null && this.account != undefined) {
+            if (this.account !== null && this.account !== undefined) {
                 this.initData();
             }
         });
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
         this.eventManager.subscribe('authenticationSuccess', message => {
             this.accountService.identity().then(account => {
                 this.account = account;
-                if (this.account != null && this.account != undefined) {
+                if (this.account !== null && this.account !== undefined) {
                     this.initData();
                 }
             });
@@ -60,11 +60,7 @@ export class HomeComponent implements OnInit {
     }
 
     isAuthenticated() {
-        const auth = this.accountService.isAuthenticated();
-        if (auth) {
-            this.initData();
-        }
-        return auth;
+        return this.accountService.isAuthenticated();
     }
 
     login() {
@@ -78,18 +74,17 @@ export class HomeComponent implements OnInit {
         // 通过账号名称找到对应的用户
         this.stuffService
             .findByUserId(this.account.id)
-            .subscribe((res: HttpResponse<IStuff>) => (this.stuffId = res.body.id), 
-            (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: HttpResponse<IStuff>) => (this.stuffId = res.body.id), (res: HttpErrorResponse) => this.onError(res.message));
 
         this.propertyMoneyService
             .findByUserId(this.account.id)
             .subscribe(
-                (res: HttpResponse<IPropertyMoney>) => this.queryMoneySuccess(res.body, res.headers),
+                (res: HttpResponse<IPropertyMoney>) => this.queryMoneySuccess(res.body),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
 
-    queryMoneySuccess(data: IPropertyMoney, headers: HttpHeaders) {
+    queryMoneySuccess(data: IPropertyMoney) {
         this.money = data;
         this.currentMoney = this.money == null ? '0.00' : this.money.pay ? '0.00' : this.money.should + '.00';
     }
