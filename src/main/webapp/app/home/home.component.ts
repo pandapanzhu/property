@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
     money: IPropertyMoney;
     serve: IPropertyServe;
     currentMoney: any = '0.00';
+    stuffId: number;
 
     constructor(
         private accountService: AccountService,
@@ -59,7 +60,11 @@ export class HomeComponent implements OnInit {
     }
 
     isAuthenticated() {
-        return this.accountService.isAuthenticated();
+        const auth = this.accountService.isAuthenticated();
+        if (auth) {
+            this.initData();
+        }
+        return auth;
     }
 
     login() {
@@ -73,7 +78,8 @@ export class HomeComponent implements OnInit {
         // 通过账号名称找到对应的用户
         this.stuffService
             .findByUserId(this.account.id)
-            .subscribe((res: HttpResponse<IStuff>) => (this.stuff = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: HttpResponse<IStuff>) => (this.stuffId = res.body.id), 
+            (res: HttpErrorResponse) => this.onError(res.message));
 
         this.propertyMoneyService
             .findByUserId(this.account.id)

@@ -11,7 +11,7 @@
                     <span id="home-logged-message" *ngIf="account"> 欢迎您， {{account.login}} </span>
                 </div>
             </div>
-            <div class="homeSlefList" *ngSwitchCase="true" [routerLink]="['/stuff', stuff.id, 'edit']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
+            <div class="homeSlefList" *ngSwitchCase="true" [routerLink]="['/stuff', stuffId, 'edit']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
                 <span class="home-list "> 个人中心 </span> 
                 <div class="home-list-span" >
                     <span> > </span>
